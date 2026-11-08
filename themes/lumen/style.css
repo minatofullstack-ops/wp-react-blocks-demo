@@ -1,0 +1,19 @@
+/*
+Theme Name: Lumen
+Theme URI: https://github.com/minatofullstack-ops/wp-react-blocks-demo
+Author: minatofullstack-ops
+Description: 架空のWebマーケティング会社「ルーメン株式会社」のブロックテーマ（ポートフォリオ用デモ）。デザイントークンを theme.json に集約し、編集者がブランドから外れない色・文字サイズ・余白だけを選べるようにしています。カスタムブロックはプラグイン「Lumen Blocks」で提供します。
+Requires at least: 6.8
+Tested up to: 6.9
+Requires PHP: 7.4
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: lumen
+Tags: full-site-editing, block-patterns, block-styles, wide-blocks, translation-ready
+*/
+
+/*
+ * Almost all styling lives in theme.json. assets/css/theme.css holds the few
+ * rules that theme.json cannot express (header behaviour, focus styles…).
+ */
