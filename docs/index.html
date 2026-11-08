@@ -75,6 +75,7 @@
     padding: 8px 18px;
     cursor: pointer;
   }
+  .card a { text-decoration: none; }
   @media (prefers-reduced-motion: reduce) { .bar span { transition: none; } }
 </style>
 </head>
@@ -124,15 +125,25 @@
     if (text) stepEl.textContent = text;
   }
 
-  function showError() {
-    card.classList.add('error');
-    card.innerHTML = '<h1>読み込みに失敗しました</h1><p>通信状況により、WordPress の起動に失敗することがあります。お手数ですが、もう一度お試しください。</p><button type="button" id="retry">もう一度読み込む</button>';
-    document.getElementById('retry').addEventListener('click', () => location.reload());
+  const blueprintFile = mode === 'editor' ? 'blueprint-editor.json' : 'blueprint.json';
+  // Opening Playground as the top-level page always works, because it is
+  // then first-party. Its own loading screen is English, so it is the fallback.
+  const directUrl = `https://playground.wordpress.net/?blueprint-url=${encodeURIComponent(RAW + blueprintFile)}`;
+
+  // Embedded Playground runs in a playground.wordpress.net iframe, which needs
+  // third-party storage for its service worker. Browsers that block it (Safari,
+  // Chrome with third-party cookies blocked) never get past the first step, so
+  // offer the direct link if nothing has progressed for a while.
+  function showFallback() {
+    card.innerHTML = `<h1>この環境では、ページ内で起動できませんでした</h1><p>お使いのブラウザの設定（サードパーティ Cookie のブロックなど）により、ページの中で WordPress を起動できないことがあります。下のボタンから、WordPress 公式のツール「WordPress Playground」で直接開けます。読み込み中の数十秒だけ英語の準備画面が表示されますが、表示されるサイトと管理画面は日本語です。</p><a href="${directUrl}"><button type="button">WordPress Playground で開く</button></a>`;
   }
+
+  let progressed = false;
+  const stallTimer = setTimeout(() => { if (!progressed) showFallback(); }, 20000);
 
   try {
     setProgress(0.08, 'WordPress 本体を読み込んでいます');
-    const blueprint = await (await fetch(`${RAW}${mode === 'editor' ? 'blueprint-editor.json' : 'blueprint.json'}`)).json();
+    const blueprint = await (await fetch(RAW + blueprintFile)).json();
     const steps = blueprint.steps || [];
     let done = 0;
     // Show the label of the next step while it runs.
@@ -143,18 +154,24 @@
       remoteUrl: 'https://playground.wordpress.net/remote.html',
       blueprint,
       disableProgressBar: true,
-      onBlueprintValidated: () => setProgress(0.35, labelFor(0)),
+      onBlueprintValidated: () => {
+        progressed = true;
+        setProgress(0.35, labelFor(0));
+      },
       onBlueprintStepCompleted: () => {
+        progressed = true;
         done += 1;
         setProgress(0.35 + 0.6 * (done / Math.max(1, steps.length)), done < steps.length ? labelFor(done) : 'まもなく表示されます');
       },
     });
 
+    clearTimeout(stallTimer);
     setProgress(1, 'まもなく表示されます');
     overlay.hidden = true;
   } catch (error) {
     console.error(error);
-    showError();
+    clearTimeout(stallTimer);
+    showFallback();
   }
 </script>
 </body>
