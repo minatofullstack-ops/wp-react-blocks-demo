@@ -135,11 +135,17 @@
   // Chrome with third-party cookies blocked) never get past the first step, so
   // offer the direct link if nothing has progressed for a while.
   function showFallback() {
-    card.innerHTML = `<h1>この環境では、ページ内で起動できませんでした</h1><p>お使いのブラウザの設定（サードパーティ Cookie のブロックなど）により、ページの中で WordPress を起動できないことがあります。下のボタンから、WordPress 公式のツール「WordPress Playground」で直接開けます。読み込み中の数十秒だけ英語の準備画面が表示されますが、表示されるサイトと管理画面は日本語です。</p><a href="${directUrl}"><button type="button">WordPress Playground で開く</button></a>`;
+    card.innerHTML = `<h1>ページ内での起動に時間がかかっています</h1><p>お使いのブラウザの設定（サードパーティ Cookie のブロックなど）や通信状況により、ページの中で WordPress を起動できないことがあります。下のボタンから、WordPress 公式のツール「WordPress Playground」で直接開けます。読み込み中の数十秒だけ英語の準備画面が表示されますが、表示されるサイトと管理画面は日本語です。</p><a href="${directUrl}"><button type="button">WordPress Playground で開く</button></a>`;
   }
 
-  let progressed = false;
-  const stallTimer = setTimeout(() => { if (!progressed) showFallback(); }, 20000);
+  // Restart the countdown whenever a step finishes; if no step finishes
+  // for 45 seconds at any stage, treat it as stuck.
+  let stallTimer;
+  const markProgress = () => {
+    clearTimeout(stallTimer);
+    stallTimer = setTimeout(showFallback, 45000);
+  };
+  markProgress();
 
   try {
     setProgress(0.08, 'WordPress 本体を読み込んでいます');
@@ -155,11 +161,11 @@
       blueprint,
       disableProgressBar: true,
       onBlueprintValidated: () => {
-        progressed = true;
+        markProgress();
         setProgress(0.35, labelFor(0));
       },
       onBlueprintStepCompleted: () => {
-        progressed = true;
+        markProgress();
         done += 1;
         setProgress(0.35 + 0.6 * (done / Math.max(1, steps.length)), done < steps.length ? labelFor(done) : 'まもなく表示されます');
       },
