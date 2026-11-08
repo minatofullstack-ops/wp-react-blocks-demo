@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumen デモ｜WordPress React カスタムブロック</title>
+<meta name="description" content="React（@wordpress/scripts）で作った WordPress カスタムブロックとブロックテーマのデモです。インストール不要でブラウザ上で試せます。">
+<style>
+  :root {
+    --bg: #0f172a;
+    --panel: #111c33;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #2563eb;
+    --accent-2: #f97316;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", "Meiryo", sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid #1e293b;
+    flex-wrap: wrap;
+  }
+  .brand { font-weight: 700; font-size: 15px; margin-right: auto; }
+  .brand small { display: block; font-weight: 400; color: var(--muted); font-size: 12px; }
+  nav { display: flex; gap: 8px; flex-wrap: wrap; }
+  nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid #334155;
+  }
+  nav a[aria-current="page"] { background: var(--accent); border-color: var(--accent); }
+  nav a:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+  main { position: relative; flex: 1; min-height: 0; }
+  iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    padding: 16px;
+  }
+  .overlay[hidden] { display: none; }
+  .card { width: min(440px, 100%); text-align: center; }
+  .card h1 { font-size: 18px; margin: 0 0 6px; }
+  .card p { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 0 0 18px; }
+  .bar { height: 6px; background: #1e293b; border-radius: 999px; overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 5%; background: linear-gradient(90deg, var(--accent), #60a5fa); transition: width .4s ease; }
+  .step { margin-top: 12px; font-size: 13px; color: var(--text); min-height: 1.5em; }
+  .error h1 { color: #fca5a5; }
+  button {
+    margin-top: 14px;
+    font: inherit;
+    font-size: 13px;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: reduce) { .bar span { transition: none; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Lumen デモ<small>React で作った WordPress カスタムブロックとブロックテーマ</small></div>
+  <nav aria-label="表示の切り替え">
+    <a href="./" data-mode="site">サイトを見る</a>
+    <a href="./?mode=editor" data-mode="editor">ブロックエディタを開く</a>
+    <a href="https://github.com/minatofullstack-ops/wp-react-blocks-demo" target="_blank" rel="noopener">ソースコード（GitHub）</a>
+  </nav>
+</header>
+<main>
+  <iframe id="wp" title="WordPress デモ"></iframe>
+  <div class="overlay" id="overlay" role="status" aria-live="polite">
+    <div class="card" id="card">
+      <h1>WordPress を準備しています</h1>
+      <p>ブラウザの中で WordPress を起動しています。インストールは不要で、操作した内容はこのブラウザの中だけで完結し、どこにも保存されません。初回は 30 秒〜1 分ほどかかります。</p>
+      <div class="bar"><span id="bar"></span></div>
+      <div class="step" id="step">起動の準備をしています</div>
+    </div>
+  </div>
+</main>
+<script type="module">
+  import { startPlaygroundWeb } from 'https://playground.wordpress.net/client/index.js';
+
+  const RAW = 'https://raw.githubusercontent.com/minatofullstack-ops/wp-react-blocks-demo/main/playground/';
+  const mode = new URLSearchParams(location.search).get('mode') === 'editor' ? 'editor' : 'site';
+  document.querySelector(`nav a[data-mode="${mode}"]`)?.setAttribute('aria-current', 'page');
+
+  const STEP_LABELS = {
+    login: '管理画面にログインしています',
+    unzip: '管理画面の日本語翻訳を読み込んでいます',
+    setSiteOptions: 'サイトの設定をしています',
+    installPlugin: 'カスタムブロック（プラグイン）をインストールしています',
+    installTheme: 'ブロックテーマをインストールしています',
+    'wp-cli': 'デモ用のページと導入事例を作成しています',
+  };
+
+  const bar = document.getElementById('bar');
+  const stepEl = document.getElementById('step');
+  const overlay = document.getElementById('overlay');
+  const card = document.getElementById('card');
+
+  function setProgress(ratio, text) {
+    bar.style.width = `${Math.max(5, Math.min(100, ratio * 100))}%`;
+    if (text) stepEl.textContent = text;
+  }
+
+  function showError() {
+    card.classList.add('error');
+    card.innerHTML = '<h1>読み込みに失敗しました</h1><p>通信状況により、WordPress の起動に失敗することがあります。お手数ですが、もう一度お試しください。</p><button type="button" id="retry">もう一度読み込む</button>';
+    document.getElementById('retry').addEventListener('click', () => location.reload());
+  }
+
+  try {
+    setProgress(0.08, 'WordPress 本体を読み込んでいます');
+    const blueprint = await (await fetch(`${RAW}${mode === 'editor' ? 'blueprint-editor.json' : 'blueprint.json'}`)).json();
+    const steps = blueprint.steps || [];
+    let done = 0;
+    // Show the label of the next step while it runs.
+    const labelFor = (i) => STEP_LABELS[steps[i]?.step] || 'セットアップしています';
+
+    await startPlaygroundWeb({
+      iframe: document.getElementById('wp'),
+      remoteUrl: 'https://playground.wordpress.net/remote.html',
+      blueprint,
+      disableProgressBar: true,
+      onBlueprintValidated: () => setProgress(0.35, labelFor(0)),
+      onBlueprintStepCompleted: () => {
+        done += 1;
+        setProgress(0.35 + 0.6 * (done / Math.max(1, steps.length)), done < steps.length ? labelFor(done) : '表示しています');
+      },
+    });
+
+    setProgress(1, '表示しています');
+    overlay.hidden = true;
+  } catch (error) {
+    console.error(error);
+    showError();
+  }
+</script>
+</body>
+</html>
