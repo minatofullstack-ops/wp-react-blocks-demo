@@ -1,0 +1,85 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lumen/hero",
+	"version": "1.1.0",
+	"title": "ヒーロー",
+	"category": "lumen",
+	"icon": "cover-image",
+	"description": "ページ冒頭のメインビジュアル。見出し・リード文・背景画像・CTAボタンを編集できます。",
+	"keywords": [ "hero", "メインビジュアル", "ファーストビュー", "MV" ],
+	"textdomain": "lumen-blocks",
+	"attributes": {
+		"mediaId": {
+			"type": "number"
+		},
+		"mediaUrl": {
+			"type": "string",
+			"source": "attribute",
+			"selector": ".lumen-hero__media",
+			"attribute": "src"
+		},
+		"focalPoint": {
+			"type": "object",
+			"default": { "x": 0.5, "y": 0.5 }
+		},
+		"dimRatio": {
+			"type": "number",
+			"default": 70
+		},
+		"minHeight": {
+			"type": "number",
+			"default": 640
+		},
+		"eyebrow": {
+			"type": "string",
+			"source": "html",
+			"selector": ".lumen-hero__eyebrow"
+		},
+		"heading": {
+			"type": "string",
+			"source": "html",
+			"selector": ".lumen-hero__title"
+		},
+		"lead": {
+			"type": "string",
+			"source": "html",
+			"selector": ".lumen-hero__lead"
+		},
+		"align": {
+			"type": "string",
+			"default": "full"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "ink"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "base"
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide", "full" ],
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true
+		},
+		"spacing": {
+			"padding": true
+		}
+	},
+	"example": {
+		"attributes": {
+			"eyebrow": "WEB MARKETING PARTNER",
+			"heading": "成果につながるWebを、<br>戦略からまるごと。",
+			"lead": "LP制作・コーポレートサイト・オウンドメディア運用まで、データに基づいて伴走します。"
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
+}

@@ -1,0 +1,105 @@
+/**
+ * Front-end + editor styles for lumen/hero.
+ * Values come from theme.json presets (CSS custom properties), so the block
+ * follows the design tokens of the active theme.
+ */
+.wp-block-lumen-hero {
+	position: relative;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	isolation: isolate;
+	padding-block: var(--wp--preset--spacing--70, 6rem);
+	padding-inline: var(--wp--style--root--padding-right, 1.5rem);
+	background-size: cover;
+	background-position: center;
+
+	.lumen-hero__media {
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+		width: 100%;
+		height: 100%;
+		max-width: none;
+		object-fit: cover;
+	}
+
+	/* The overlay re-uses the background color/gradient of block supports. */
+	.lumen-hero__overlay {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: inherit;
+	}
+
+	.lumen-hero__inner {
+		width: 100%;
+		max-width: var(--wp--style--global--wide-size, 1200px);
+		margin-inline: auto;
+	}
+
+	.lumen-hero__eyebrow {
+		margin: 0 0 var(--wp--preset--spacing--30, 1rem);
+		font-family: var(--wp--preset--font-family--inter, inherit);
+		font-size: var(--wp--preset--font-size--small, 0.875rem);
+		font-weight: 600;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		opacity: 0.85;
+	}
+
+	.lumen-hero__title {
+		max-width: 18em;
+		margin: 0;
+		font-size: var(--wp--preset--font-size--display, 3rem);
+		font-weight: 700;
+		line-height: 1.35;
+		letter-spacing: 0.02em;
+		color: inherit;
+	}
+
+	.lumen-hero__lead {
+		max-width: 36em;
+		margin: var(--wp--preset--spacing--40, 1.5rem) 0 0;
+		font-size: var(--wp--preset--font-size--large, 1.125rem);
+		line-height: 1.9;
+		opacity: 0.92;
+	}
+
+	.lumen-hero__actions {
+		margin-top: var(--wp--preset--spacing--50, 2.5rem);
+	}
+}
+
+/*
+ * Legacy v1.0 markup (background-image, no color classes). Keeps old posts
+ * readable on the front end until they are opened and re-saved in the editor,
+ * where deprecated.js migrates them.
+ */
+.wp-block-lumen-hero[style*="background-image"]:not(.has-text-color) {
+	color: var(--wp--preset--color--base, #fff);
+	background-color: var(--wp--preset--color--ink, #0e1a2b);
+
+	&::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: rgba(14, 26, 43, 0.55);
+	}
+}
+
+@media (max-width: 599px) {
+
+	.wp-block-lumen-hero {
+		padding-block: var(--wp--preset--spacing--60, 4rem);
+
+		.lumen-hero__title {
+			font-size: 1.875rem;
+		}
+
+		.lumen-hero__lead br {
+			display: none;
+		}
+	}
+}

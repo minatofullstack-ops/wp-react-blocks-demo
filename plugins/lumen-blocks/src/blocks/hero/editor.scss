@@ -1,0 +1,10 @@
+.wp-block-lumen-hero {
+
+	.lumen-hero__media {
+		pointer-events: none;
+	}
+
+	.lumen-hero__eyebrow[data-empty="true"] {
+		opacity: 0.6;
+	}
+}
