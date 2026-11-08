@@ -100,8 +100,6 @@
   </div>
 </main>
 <script type="module">
-  import { startPlaygroundWeb } from 'https://playground.wordpress.net/client/index.js';
-
   const RAW = 'https://raw.githubusercontent.com/minatofullstack-ops/wp-react-blocks-demo/main/playground/';
   const mode = new URLSearchParams(location.search).get('mode') === 'editor' ? 'editor' : 'site';
   document.querySelector(`nav a[data-mode="${mode}"]`)?.setAttribute('aria-current', 'page');
@@ -148,6 +146,9 @@
   markProgress();
 
   try {
+    // Imported here (not statically) so a blocked or failed download still
+    // reaches the fallback below instead of stopping the whole script.
+    const { startPlaygroundWeb } = await import('https://playground.wordpress.net/client/index.js');
     setProgress(0.08, 'WordPress 本体を読み込んでいます');
     const blueprint = await (await fetch(RAW + blueprintFile)).json();
     const steps = blueprint.steps || [];
