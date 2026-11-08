@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lumen/stats",
+	"version": "1.0.0",
+	"title": "実績・数字",
+	"category": "lumen",
+	"icon": "chart-bar",
+	"description": "実績の数字を並べて表示します。表示時にカウントアップします（「視差効果を減らす」設定の環境ではアニメーションしません）。",
+	"keywords": [ "stats", "数字", "実績", "カウントアップ" ],
+	"textdomain": "lumen-blocks",
+	"attributes": {
+		"items": {
+			"type": "array",
+			"default": [
+				{ "value": 320, "decimals": 0, "prefix": "", "suffix": "社", "label": "支援企業数" },
+				{ "value": 2.4, "decimals": 1, "prefix": "", "suffix": "倍", "label": "平均CV改善率" },
+				{ "value": 98, "decimals": 0, "prefix": "", "suffix": "%", "label": "契約継続率" },
+				{ "value": 1200, "decimals": 0, "prefix": "", "suffix": "本+", "label": "制作LP・記事数" }
+			],
+			"items": {
+				"type": "object"
+			}
+		},
+		"duration": {
+			"type": "number",
+			"default": 1600
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide", "full" ],
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": [ "top", "bottom" ]
+		},
+		"interactivity": true
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"viewScriptModule": "file:./view.js",
+	"render": "file:./render.php"
+}
