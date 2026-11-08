@@ -1,0 +1,55 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "Lumen – open the block editor",
+    "description": "Installs the Lumen block theme and the Lumen Blocks plugin from the latest GitHub release and imports the demo content.",
+    "author": "minatofullstack-ops",
+    "categories": [
+      "Block Theme",
+      "Custom Blocks"
+    ]
+  },
+  "landingPage": "/wp-admin/post.php?post=100&action=edit",
+  "preferredVersions": {
+    "php": "8.2",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "steps": [
+    {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    },
+    {
+      "step": "setSiteLanguage",
+      "language": "ja"
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://github.com/minatofullstack-ops/wp-react-blocks-demo/releases/latest/download/lumen-blocks.zip"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "url",
+        "url": "https://github.com/minatofullstack-ops/wp-react-blocks-demo/releases/latest/download/lumen.zip"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp lumen-demo import"
+    }
+  ]
+}

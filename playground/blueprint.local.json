@@ -1,0 +1,23 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "Lumen demo (local development)",
+    "description": "Used by `npm run playground`: the theme and plugin are mounted from this repository.",
+    "author": "minatofullstack-ops"
+  },
+  "landingPage": "/",
+  "preferredVersions": {
+    "php": "8.2",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "steps": [
+    { "step": "login", "username": "admin", "password": "password" },
+    { "step": "setSiteLanguage", "language": "ja" },
+    { "step": "activatePlugin", "pluginPath": "lumen-blocks/lumen-blocks.php" },
+    { "step": "activateTheme", "themeFolderName": "lumen" },
+    { "step": "wp-cli", "command": "wp lumen-demo import" }
+  ]
+}
