@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build output (built in CI and shipped via GitHub Releases ZIPs)
+plugins/lumen-blocks/build/
+dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

@@ -1,0 +1,45 @@
+{
+	"name": "wp-react-blocks-demo",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Portfolio demo: Gutenberg custom blocks (React / @wordpress/scripts) + block theme for a fictional company.",
+	"license": "GPL-2.0-or-later",
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"build": "wp-scripts build --webpack-src-dir=plugins/lumen-blocks/src --output-path=plugins/lumen-blocks/build --experimental-modules --blocks-manifest",
+		"start": "wp-scripts start --webpack-src-dir=plugins/lumen-blocks/src --output-path=plugins/lumen-blocks/build --experimental-modules --blocks-manifest",
+		"lint:js": "wp-scripts lint-js plugins/lumen-blocks/src scripts eslint.config.cjs webpack.config.js",
+		"lint:css": "wp-scripts lint-style \"plugins/lumen-blocks/src/**/*.scss\" \"themes/lumen/assets/css/**/*.css\"",
+		"lint": "npm run lint:js && npm run lint:css",
+		"format": "wp-scripts format plugins/lumen-blocks/src scripts eslint.config.cjs webpack.config.js",
+		"test": "wp-scripts test-unit-js",
+		"zip": "node scripts/make-zips.mjs",
+		"lint:php": "composer lint:php",
+		"plugin-zip": "node scripts/make-zips.mjs plugin",
+		"theme-zip": "node scripts/make-zips.mjs theme",
+		"playground": "npx @wp-playground/cli@latest server --php=8.2 --mount-dir ./plugins/lumen-blocks /wordpress/wp-content/plugins/lumen-blocks --mount-dir ./themes/lumen /wordpress/wp-content/themes/lumen --blueprint=./playground/blueprint.local.json --login"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^37.1.0",
+		"archiver": "^8.0.0",
+		"globals": "^17.14.0",
+		"vite": "^8.3.6",
+		"vitest": "^5.1.0"
+	},
+	"dependencies": {
+		"@wordpress/block-editor": "^20.0.0",
+		"@wordpress/blocks": "^17.1.0",
+		"@wordpress/components": "^44.0.0",
+		"@wordpress/core-data": "^9.1.0",
+		"@wordpress/data": "^11.1.0",
+		"@wordpress/editor": "^16.1.0",
+		"@wordpress/element": "^10.1.0",
+		"@wordpress/i18n": "^7.1.0",
+		"@wordpress/icons": "^20.0.0",
+		"@wordpress/interactivity": "^8.1.0",
+		"@wordpress/plugins": "^8.1.0",
+		"@wordpress/server-side-render": "^7.1.0"
+	}
+}
