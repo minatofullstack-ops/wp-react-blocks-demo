@@ -1,0 +1,126 @@
+.wp-block-lumen-faq {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.wp-block-lumen-faq-item {
+	margin: 0;
+	border: 1px solid var(--wp--preset--color--border, #dde3ed);
+	border-radius: 12px;
+	background-color: var(--wp--preset--color--base, #fff);
+
+	.lumen-faq-item__heading {
+		margin: 0;
+		font-size: var(--wp--preset--font-size--medium, 1rem);
+		line-height: 1.6;
+	}
+
+	.lumen-faq-item__toggle {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		width: 100%;
+		margin: 0;
+		padding: 1.15rem 1.25rem;
+		border: 0;
+		border-radius: inherit;
+		color: inherit;
+		background: none;
+		font: inherit;
+		font-weight: 700;
+		text-align: start;
+		cursor: pointer;
+
+		&:focus-visible {
+			outline: 3px solid var(--wp--preset--color--primary, #1d4ed8);
+			outline-offset: 2px;
+		}
+	}
+
+	.lumen-faq-item__question {
+		flex: 1;
+	}
+
+	.lumen-faq-item__mark {
+		display: inline-grid;
+		flex: none;
+		place-items: center;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		color: var(--wp--preset--color--base, #fff);
+		background: var(--wp--preset--color--primary, #1d4ed8);
+		font-family: var(--wp--preset--font-family--inter, inherit);
+		font-size: 0.875rem;
+		font-weight: 700;
+		line-height: 1;
+
+		&.is-answer {
+			color: var(--wp--preset--color--ink, #0e1a2b);
+			background: var(--wp--preset--color--accent, #ff8a4c);
+		}
+	}
+
+	/* Plus / minus icon drawn with CSS so it inherits the text color. */
+	.lumen-faq-item__icon {
+		position: relative;
+		flex: none;
+		width: 14px;
+		height: 14px;
+
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 100%;
+			height: 2px;
+			margin-top: -1px;
+			background: currentcolor;
+			transition: transform 0.2s ease;
+		}
+
+		&::after {
+			transform: rotate(90deg);
+		}
+	}
+
+	&.is-open .lumen-faq-item__icon::after {
+		transform: rotate(0deg);
+	}
+
+	.lumen-faq-item__panel {
+		display: flex;
+		gap: 1rem;
+		padding: 0 1.25rem 1.25rem;
+
+		&[hidden] {
+			display: none;
+		}
+	}
+
+	.lumen-faq-item__answer {
+		flex: 1;
+		min-width: 0;
+		padding-top: 0.25rem;
+		color: var(--wp--preset--color--muted, #4f5b6d);
+
+		> :first-child {
+			margin-top: 0;
+		}
+
+		> :last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.wp-block-lumen-faq-item .lumen-faq-item__icon::before,
+	.wp-block-lumen-faq-item .lumen-faq-item__icon::after {
+		transition: none;
+	}
+}
