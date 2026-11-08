@@ -1,0 +1,59 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lumen/cta",
+	"version": "1.0.0",
+	"title": "CTAバナー",
+	"category": "lumen",
+	"icon": "megaphone",
+	"description": "お問い合わせ・資料請求へ誘導するバナー。背景色はブランドカラーから選べます。",
+	"keywords": [ "cta", "お問い合わせ", "資料請求", "バナー" ],
+	"textdomain": "lumen-blocks",
+	"attributes": {
+		"eyebrow": {
+			"type": "string",
+			"source": "html",
+			"selector": ".lumen-cta__eyebrow"
+		},
+		"heading": {
+			"type": "string",
+			"source": "html",
+			"selector": ".lumen-cta__title"
+		},
+		"text": {
+			"type": "string",
+			"source": "html",
+			"selector": ".lumen-cta__text"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "primary"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "base"
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide", "full" ],
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true
+		},
+		"spacing": {
+			"padding": true,
+			"margin": [ "top", "bottom" ]
+		}
+	},
+	"example": {
+		"attributes": {
+			"heading": "まずは無料相談から",
+			"text": "現状のサイト課題をヒアリングし、改善の方向性をご提案します。"
+		}
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css"
+}
