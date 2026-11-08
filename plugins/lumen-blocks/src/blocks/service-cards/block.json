@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lumen/service-cards",
+	"version": "1.0.0",
+	"title": "サービスカード",
+	"category": "lumen",
+	"icon": "grid-view",
+	"description": "サービス紹介カードを2〜4列で並べます。カードは「サービスカード（項目）」ブロックのみ追加できます。",
+	"keywords": [ "service", "サービス", "カード", "特徴" ],
+	"textdomain": "lumen-blocks",
+	"attributes": {
+		"columns": {
+			"type": "number",
+			"default": 3
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide" ],
+		"spacing": {
+			"margin": [ "top", "bottom" ],
+			"blockGap": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css"
+}

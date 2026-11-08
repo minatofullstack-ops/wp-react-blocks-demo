@@ -1,0 +1,29 @@
+.wp-block-lumen-service-card .lumen-service-card__link.is-preview {
+	color: var(--wp--preset--color--primary, #1d4ed8);
+
+	&::after {
+		display: none;
+	}
+}
+
+.lumen-icon-picker {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 8px;
+
+	.lumen-icon-picker__item.components-button {
+		justify-content: center;
+		height: 48px;
+		border: 1px solid #ddd;
+
+		/* Components force fill: currentColor on SVGs; these are stroke icons. */
+		svg {
+			fill: none;
+		}
+	}
+}
+
+.lumen-link-popover {
+	min-width: 300px;
+	padding: 12px;
+}

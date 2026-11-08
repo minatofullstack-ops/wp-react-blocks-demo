@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lumen/service-card",
+	"version": "1.0.0",
+	"title": "サービスカード（項目）",
+	"category": "lumen",
+	"icon": "index-card",
+	"description": "アイコン・タイトル・説明文・リンクを持つサービス紹介カード。",
+	"parent": [ "lumen/service-cards" ],
+	"textdomain": "lumen-blocks",
+	"attributes": {
+		"icon": {
+			"type": "string",
+			"default": "strategy"
+		},
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": ".lumen-service-card__title"
+		},
+		"text": {
+			"type": "string",
+			"source": "html",
+			"selector": ".lumen-service-card__text"
+		},
+		"url": {
+			"type": "string",
+			"source": "attribute",
+			"selector": ".lumen-service-card__link",
+			"attribute": "href"
+		},
+		"linkText": {
+			"type": "string",
+			"default": "詳しく見る"
+		}
+	},
+	"supports": {
+		"html": false,
+		"reusable": false,
+		"color": {
+			"background": true,
+			"text": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css"
+}
