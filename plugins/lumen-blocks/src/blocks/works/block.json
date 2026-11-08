@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "lumen/works",
+	"version": "1.0.0",
+	"title": "導入事例一覧",
+	"category": "lumen",
+	"icon": "portfolio",
+	"description": "投稿タイプ「導入事例」から最新の事例を自動で表示します。件数とカテゴリーはサイドバーで指定できます。",
+	"keywords": [ "works", "事例", "実績", "case study" ],
+	"textdomain": "lumen-blocks",
+	"attributes": {
+		"count": {
+			"type": "number",
+			"default": 3
+		},
+		"category": {
+			"type": "string",
+			"default": ""
+		},
+		"columns": {
+			"type": "number",
+			"default": 3
+		},
+		"showExcerpt": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide" ],
+		"spacing": {
+			"margin": [ "top", "bottom" ]
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}
