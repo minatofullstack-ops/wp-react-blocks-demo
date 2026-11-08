@@ -31,3 +31,18 @@ jobs:
             dist/lumen-blocks.zip
             dist/lumen.zip
           generate_release_notes: true
+
+      # GitHub release downloads redirect without CORS headers, so the
+      # browser-based WordPress Playground cannot fetch them. Publish the
+      # same ZIPs to the dist branch, served from raw.githubusercontent.com.
+      - name: Publish ZIPs to the dist branch for Playground
+        run: |
+          mkdir /tmp/dist-branch
+          cp dist/lumen-blocks.zip dist/lumen.zip /tmp/dist-branch/
+          cd /tmp/dist-branch
+          git init -b dist
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Build ZIPs for ${GITHUB_REF_NAME}"
+          git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" dist

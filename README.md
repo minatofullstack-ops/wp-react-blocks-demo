@@ -11,7 +11,7 @@
 - サイトを見る: <https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/minatofullstack-ops/wp-react-blocks-demo/main/playground/blueprint.json>
 - ブロックエディターを開く: <https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/minatofullstack-ops/wp-react-blocks-demo/main/playground/blueprint-editor.json>
 
-（管理画面には自動ログインします。変更はブラウザ内だけで完結し、どこにも保存されません。）
+（管理画面には自動ログインします。変更はブラウザ内だけで完結し、どこにも保存されません。Playground 上の管理画面は英語表示になりますが、ブロックの設定やデモの内容は日本語です。）
 
 ![トップページ（PC）](docs/screenshots/front-pc-1440.png)
 
@@ -138,7 +138,7 @@ npm run playground   # http://127.0.0.1:9400 （自動ログイン）
 git tag v1.0.0 && git push origin v1.0.0
 ```
 
-GitHub Actions（`release.yml`）がビルドし、Release に `lumen-blocks.zip` と `lumen.zip` を添付します。Playground の blueprint はこの最新 Release の ZIP をインストールします。
+GitHub Actions（`release.yml`）がビルドし、Release に `lumen-blocks.zip` と `lumen.zip` を添付します。同じ ZIP を `dist` ブランチにも置き、Playground の blueprint はそこからインストールします（Release のダウンロード URL は CORS ヘッダーのないリダイレクトを返すため、ブラウザ上で動く Playground からは取得できないため）。
 
 ## スクリーンショット
 
@@ -156,7 +156,7 @@ GitHub Actions（`release.yml`）がビルドし、Release に `lumen-blocks.zip
 
 ## English summary
 
-Portfolio demo of **WordPress-native React development**: a block theme (`themes/lumen`, theme.json v3 design tokens, templates, template parts, patterns incl. a `contentOnly`-locked pricing table) plus a plugin (`plugins/lumen-blocks`) with eight custom blocks built with `@wordpress/scripts` (block.json apiVersion 3): hero (static, with a real `deprecated.js` migration), service cards (parent/child InnerBlocks), stats (dynamic + Interactivity API count-up, respects `prefers-reduced-motion`), works list (dynamic `render.php` querying a `works` custom post type, ServerSideRender preview), accessible FAQ accordion (Interactivity API, keyboard support, FAQPage JSON-LD) and a CTA banner. Post meta is edited in a React sidebar panel and displayed via Block Bindings (no ACF needed). Theme = presentation, plugin = content structure, so content survives a theme switch. CI runs ESLint, Stylelint, Vitest unit tests, PHPCS (WPCS) and the build; tagging `v*` publishes theme/plugin ZIPs that the WordPress Playground blueprint installs, so the demo can be opened in the browser without installing anything. All company names, numbers and case studies are fictional.
+Portfolio demo of **WordPress-native React development**: a block theme (`themes/lumen`, theme.json v3 design tokens, templates, template parts, patterns incl. a `contentOnly`-locked pricing table) plus a plugin (`plugins/lumen-blocks`) with eight custom blocks built with `@wordpress/scripts` (block.json apiVersion 3): hero (static, with a real `deprecated.js` migration), service cards (parent/child InnerBlocks), stats (dynamic + Interactivity API count-up, respects `prefers-reduced-motion`), works list (dynamic `render.php` querying a `works` custom post type, ServerSideRender preview), accessible FAQ accordion (Interactivity API, keyboard support, FAQPage JSON-LD) and a CTA banner. Post meta is edited in a React sidebar panel and displayed via Block Bindings (no ACF needed). Theme = presentation, plugin = content structure, so content survives a theme switch. CI runs ESLint, Stylelint, Vitest unit tests, PHPCS (WPCS) and the build; tagging `v*` publishes theme/plugin ZIPs (to the Release and to the `dist` branch, which the WordPress Playground blueprint installs from because release downloads lack CORS headers), so the demo can be opened in the browser without installing anything. All company names, numbers and case studies are fictional.
 
 ## License
 
