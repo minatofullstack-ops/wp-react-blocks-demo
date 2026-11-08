@@ -39,6 +39,11 @@ jobs:
         run: |
           mkdir /tmp/dist-branch
           cp dist/lumen-blocks.zip dist/lumen.zip /tmp/dist-branch/
+          # Japanese core translations for the latest WordPress, so the
+          # Playground admin can be shown in Japanese without fetching from
+          # wordpress.org in the browser (which is blocked by CORS).
+          JA_URL=$(curl -fsSL https://api.wordpress.org/translations/core/1.0/ | jq -r '.translations[] | select(.language=="ja") | .package')
+          curl -fsSLo /tmp/dist-branch/wp-ja.zip "$JA_URL"
           cd /tmp/dist-branch
           git init -b dist
           git config user.name "minatofullstack-ops"

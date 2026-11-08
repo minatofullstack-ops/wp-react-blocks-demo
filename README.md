@@ -11,7 +11,7 @@
 - サイトを見る: <https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/minatofullstack-ops/wp-react-blocks-demo/main/playground/blueprint.json>
 - ブロックエディターを開く: <https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/minatofullstack-ops/wp-react-blocks-demo/main/playground/blueprint-editor.json>
 
-（管理画面には自動ログインします。変更はブラウザ内だけで完結し、どこにも保存されません。Playground 上の管理画面は英語表示になりますが、ブロックの設定やデモの内容は日本語です。）
+（管理画面には自動ログインします。変更はブラウザ内だけで完結し、どこにも保存されません。管理画面も日本語で表示されます。）
 
 ![トップページ（PC）](docs/screenshots/front-pc-1440.png)
 
@@ -138,7 +138,7 @@ npm run playground   # http://127.0.0.1:9400 （自動ログイン）
 git tag v1.0.0 && git push origin v1.0.0
 ```
 
-GitHub Actions（`release.yml`）がビルドし、Release に `lumen-blocks.zip` と `lumen.zip` を添付します。同じ ZIP を `dist` ブランチにも置き、Playground の blueprint はそこからインストールします（Release のダウンロード URL は CORS ヘッダーのないリダイレクトを返すため、ブラウザ上で動く Playground からは取得できないため）。
+GitHub Actions（`release.yml`）がビルドし、Release に `lumen-blocks.zip` と `lumen.zip` を添付します。同じ ZIP と WordPress 本体の日本語翻訳ファイルを `dist` ブランチにも置き、Playground の blueprint はそこからインストールします（Release のダウンロード URL は CORS ヘッダーのないリダイレクトを返すため、ブラウザ上で動く Playground からは取得できないため）。
 
 ## スクリーンショット
 

@@ -2,7 +2,7 @@
   "$schema": "https://playground.wordpress.net/blueprint-schema.json",
   "meta": {
     "title": "Lumen – open the block editor",
-    "description": "Installs the Lumen block theme and the Lumen Blocks plugin from the dist branch (built by the release workflow) and imports the demo content.",
+    "description": "Installs the Lumen block theme and the Lumen Blocks plugin from the dist branch (built by the release workflow) and imports the demo content, with Japanese admin translations.",
     "author": "minatofullstack-ops",
     "categories": [
       "Block Theme",
@@ -22,6 +22,23 @@
       "step": "login",
       "username": "admin",
       "password": "password"
+    },
+    {
+      "step": "unzip",
+      "zipFile": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/minatofullstack-ops/wp-react-blocks-demo/dist/wp-ja.zip"
+      },
+      "extractToPath": "/wordpress/wp-content/languages"
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "WPLANG": "ja",
+        "timezone_string": "Asia/Tokyo",
+        "date_format": "Y年n月j日",
+        "time_format": "H:i"
+      }
     },
     {
       "step": "installPlugin",
