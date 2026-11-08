@@ -8,8 +8,10 @@
 
 **▶ ブラウザで試す（インストール不要・WordPress Playground）**
 
-- サイトを見る: <https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/minatofullstack-ops/wp-react-blocks-demo/main/playground/blueprint.json>
-- ブロックエディターを開く: <https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/minatofullstack-ops/wp-react-blocks-demo/main/playground/blueprint-editor.json>
+- サイトを見る: <https://minatofullstack-ops.github.io/wp-react-blocks-demo/>
+- ブロックエディターを開く: <https://minatofullstack-ops.github.io/wp-react-blocks-demo/?mode=editor>
+
+（`docs/index.html` が WordPress Playground を埋め込み、読み込み中の表示も日本語にしています。Playground の画面を直接開く場合は `playground/blueprint.json` を `https://playground.wordpress.net/?blueprint-url=` に渡してください。）
 
 （管理画面には自動ログインします。変更はブラウザ内だけで完結し、どこにも保存されません。管理画面も日本語で表示されます。）
 

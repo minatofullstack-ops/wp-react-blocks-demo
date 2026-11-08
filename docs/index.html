@@ -146,11 +146,11 @@
       onBlueprintValidated: () => setProgress(0.35, labelFor(0)),
       onBlueprintStepCompleted: () => {
         done += 1;
-        setProgress(0.35 + 0.6 * (done / Math.max(1, steps.length)), done < steps.length ? labelFor(done) : '表示しています');
+        setProgress(0.35 + 0.6 * (done / Math.max(1, steps.length)), done < steps.length ? labelFor(done) : 'まもなく表示されます');
       },
     });
 
-    setProgress(1, '表示しています');
+    setProgress(1, 'まもなく表示されます');
     overlay.hidden = true;
   } catch (error) {
     console.error(error);
