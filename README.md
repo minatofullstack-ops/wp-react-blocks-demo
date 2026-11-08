@@ -148,6 +148,8 @@ GitHub Actions（`release.yml`）がビルドし、Release に `lumen-blocks.zip
 | エディター：ヒーロー（背景画像・フォーカルポイント・オーバーレイ）<br>![](docs/screenshots/editor-hero-inspector.png) | エディター：実績・数字（項目の追加・並べ替え）<br>![](docs/screenshots/editor-stats-inspector.png) |
 | エディター：導入事例一覧（件数・カテゴリー）<br>![](docs/screenshots/editor-works-inspector.png) | エディター：ブロック挿入ツールの「ルーメン」カテゴリ<br>![](docs/screenshots/editor-inserter.png) |
 
+| エディター：導入事例の情報（投稿メタ／ACF を使わない React パネル）<br>![](docs/screenshots/editor-works-meta-panel.png) | ブロック移行デモ（v1.0 形式のヒーロー）<br>![](docs/screenshots/migration-demo-front.png) |
+
 その他: `docs/screenshots/` を参照してください。
 
 ---
