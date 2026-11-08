@@ -14,10 +14,30 @@
     "networking": true
   },
   "steps": [
-    { "step": "login", "username": "admin", "password": "password" },
-    { "step": "setSiteLanguage", "language": "ja" },
-    { "step": "activatePlugin", "pluginPath": "lumen-blocks/lumen-blocks.php" },
-    { "step": "activateTheme", "themeFolderName": "lumen" },
-    { "step": "wp-cli", "command": "wp lumen-demo import" }
+    {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    },
+    {
+      "step": "setSiteLanguage",
+      "language": "ja"
+    },
+    {
+      "step": "activatePlugin",
+      "pluginPath": "lumen-blocks/lumen-blocks.php"
+    },
+    {
+      "step": "activateTheme",
+      "themeFolderName": "lumen"
+    },
+    {
+      "step": "wp-cli",
+      "command": "wp lumen-demo import"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require \"/wordpress/wp-load.php\"; update_user_meta( 1, $GLOBALS[\"wpdb\"]->get_blog_prefix() . \"persisted_preferences\", json_decode( \"{\\\"core/edit-post\\\":{\\\"welcomeGuide\\\":false},\\\"core/edit-site\\\":{\\\"welcomeGuide\\\":false,\\\"welcomeGuideStyles\\\":false,\\\"welcomeGuidePage\\\":false,\\\"welcomeGuideTemplate\\\":false},\\\"core\\\":{\\\"isComplementaryAreaVisible\\\":true},\\\"_modified\\\":\\\"2026-11-09T00:00:00.000Z\\\"}\", true ) );"
+    }
   ]
 }
